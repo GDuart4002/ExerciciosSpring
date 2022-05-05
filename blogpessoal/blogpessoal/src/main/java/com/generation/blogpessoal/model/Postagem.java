@@ -1,7 +1,9 @@
 package com.generation.blogpessoal.model;
 
+import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table (name = "tb_postagem")
@@ -9,15 +11,24 @@ public class Postagem {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	public Long id;
+	private Long id;
 
 	@NotNull
-	@Size (min = 1 , max = 100, message = "O título tem no mínimo 1 caracter e no máximo 100.")
-	public String titulo;
+	@Size (min = 5 , max = 100, message = "O título tem no mínimo 5 caractéres e no máximo 100.")
+	private String titulo;
 	
 	@NotNull
-	public String texto;
+	@Size (min = 10 , max = 500, message = "O texto tem no mínimo 10 caractéres e no máximo 500.")
+	private String texto;
+	
+	@Temporal (TemporalType.TIMESTAMP)
+	private Date data = new java.sql.Date(System.currentTimeMillis());
 
+	@NotNull //Aí é necessário cadastrar uma tema quando cadastrar uma postagem
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
+	
 	public Long getId() {
 		return id;
 	}
@@ -40,5 +51,21 @@ public class Postagem {
 
 	public void setTexto(String texto) {
 		this.texto = texto;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 }
