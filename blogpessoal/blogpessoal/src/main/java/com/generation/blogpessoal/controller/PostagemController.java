@@ -1,6 +1,6 @@
 package com.generation.blogpessoal.controller;
 
-import java.util.*;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -12,7 +12,7 @@ import com.generation.blogpessoal.repository.PostagemRepository;
 @RequestMapping ("/postagem")
 @CrossOrigin(origins = "*")
 public class PostagemController {
-
+	
 	@Autowired
 	private PostagemRepository repository;
 	
@@ -31,19 +31,24 @@ public class PostagemController {
 	public ResponseEntity <List <Postagem>> getByTitulo(@PathVariable String titulo) {
 		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
 	}
-
+	
 	@PostMapping
-	public ResponseEntity <Postagem> post(@RequestBody Postagem postagem) {
+	public ResponseEntity <Postagem> post(@Valid @RequestBody Postagem postagem) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(postagem));
 	}
-
+	
 	@PutMapping
-	public ResponseEntity <Postagem> put(@RequestBody Postagem postagem) {
+	public ResponseEntity <Postagem> put(@Valid @RequestBody Postagem postagem) {
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(postagem));
 	}
-
+	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
-		repository.deleteById(id);
+	public ResponseEntity<?> delete(@PathVariable Long id) {
+		return repository.findById(id)
+				.map(resposta -> {
+					repository.deleteById(id);
+					return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+				})
+				.orElse(ResponseEntity.notFound().build());
 	}
 }

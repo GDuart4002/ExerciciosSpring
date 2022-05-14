@@ -1,6 +1,6 @@
 package com.generation.blogpessoal.model;
 
-import java.util.*;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -15,7 +15,7 @@ public class Tema {
 		
 		@NotNull
 		public String descricao;
-		 
+		
 		@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL)
 		@JsonIgnoreProperties("tema")
 		private List <Postagem> postagem;

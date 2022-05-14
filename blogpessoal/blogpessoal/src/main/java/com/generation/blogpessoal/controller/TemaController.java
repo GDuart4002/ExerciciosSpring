@@ -1,7 +1,7 @@
 package com.generation.blogpessoal.controller;
 
-import java.util.*;
-import javax.validation.*;
+import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
