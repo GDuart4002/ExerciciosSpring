@@ -37,8 +37,9 @@ public class UsuarioRepositoryTest {
 	@Test
 	@DisplayName("Teste que retorna 1 usuario") 
 	public void retornaUmUsuario() { 
-		Optional <Usuario> usuario = repository.findByUsuario("isadora@gmail.com"); 
+		Optional <Usuario> usuario = repository.findByUsuario("isadora@gmail.com");
 		assertTrue(usuario.get().getUsuario().equals("isadora@gmail.com")); 
+
 	}
 	
 	@Test 

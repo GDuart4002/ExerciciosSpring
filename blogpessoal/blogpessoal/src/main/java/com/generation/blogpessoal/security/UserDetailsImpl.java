@@ -1,6 +1,8 @@
 package com.generation.blogpessoal.security;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -46,7 +48,7 @@ public class UserDetailsImpl implements UserDetails {
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
-
+	
 	@Override
 	public boolean isEnabled() {
 		return true;

@@ -3,12 +3,22 @@ package com.generation.blogpessoal.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
-import org.junit.jupiter.api.*;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import com.generation.blogpessoal.model.Usuario;
 import com.generation.blogpessoal.service.UsuarioService;
 
@@ -70,7 +80,7 @@ public class UsuarioControllerTest {
 		HttpEntity <Usuario> requisicao = new HttpEntity <Usuario> (usuarioUpdate);
 	
 		ResponseEntity <Usuario> resposta = testRestTemplate
-				.withBasicAuth("root", "root")
+				.withBasicAuth("root", "40028922")
 				.exchange("/usuario/atualizar", HttpMethod.PUT, requisicao, Usuario.class);
 		
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
@@ -89,7 +99,7 @@ public class UsuarioControllerTest {
 		usuarioService.cadastraUsuario(new Usuario(0L, "Leôncio", "leoncio@gmail.com", "almondega", 
 														         "https://i.imgur.com/FETvs2O.jpg"));
 		ResponseEntity <String> resposta = testRestTemplate
-				.withBasicAuth("root", "root")
+				.withBasicAuth("root", "40028922")
 				.exchange("/usuario/all", HttpMethod.GET, null, String.class);
 		
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());

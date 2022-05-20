@@ -1,9 +1,22 @@
 package com.generation.blogpessoal.model;
 
 import java.util.List;
-import javax.persistence.*;
-import javax.validation.constraints.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table (name = "tb_usuario")
@@ -16,7 +29,8 @@ public class Usuario {
 		@NotBlank
 		private String nome;
 		
-		@NotNull
+		@Schema(example = "email@email.com.br")
+		@NotNull (message = "Campo obrigatório")
 		@Email (message = "Usuário deve ser um e-mail válido! \n Exemplo: charliebrown@jigjey.com")
 		private String usuario;
 		
